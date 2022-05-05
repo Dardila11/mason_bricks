@@ -1,0 +1,7 @@
+name: clean_starter
+description: Generates a clean architecture structure with dependency injection
+version: 0.1.0+1
+repository: https://github.com/Dardila11/mason_bricks/tree/main/bricks/clean_starter
+environment:
+  mason: ">=0.1.0-dev <0.1.0"
+
