@@ -1,4 +1,4 @@
 analyzer: 
   exclude: 
-    - bricks/**
+    - bricks/clean_starter/__brick__
     - docs/**
