@@ -1,6 +1,7 @@
 name: clean_app
 description: Generates a new Flutter app with a clean architecture structure
 version: 1.0.0
+repository: https://github.com/Dardila11/mason_bricks/tree/master/bricks/clean_app
 environment:
   mason: ">=0.1.0-dev <0.1.0"
 
