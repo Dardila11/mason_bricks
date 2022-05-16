@@ -1,0 +1,24 @@
+name: clean_app
+description: Generates a new Flutter app with a clean architecture structure
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev <0.1.0"
+
+vars:
+  name:
+    type: string
+    description: Project name
+    default: clean_app
+    prompt: What is the project name?
+  
+  description:
+    type: string
+    description: Project description
+    default: Flutter app starter with a clean architecture structure
+    prompt: What is the description?
+  
+  org:
+    type: string
+    description: Organization name
+    default: com.example
+    prompt: What is your organization name?

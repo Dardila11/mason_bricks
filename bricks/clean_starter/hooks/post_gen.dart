@@ -6,16 +6,19 @@ import 'package:mason/mason.dart';
  */
 
 Future<void> run(HookContext context) async {
+  final filesRemoved = context.logger.progress('All files removed!');
   var dir = Directory('.');
+  removeFiles(dir).listen((event) {
+    context.logger.info(event);
+  }, onDone: () => filesRemoved());
+}
 
-  await dir
-      .list(recursive: true)
-      .where((element) => element.toString().contains('.gitkeep'))
-      .listen(
-    (element) {
-      context.logger.info('removing .gitkeep files ...');
-      element.delete();
-    },
-    onDone: () => context.logger.info('Done!'),
-  );
+Stream<String> removeFiles(Directory dir) async* {
+  var entities = await dir.list(recursive: true);
+  await for (FileSystemEntity entity in entities) {
+    if (entity.toString().contains('.gitkeep')) {
+      await entity.delete();
+      yield '.gitkeep file removed';
+    }
+  }
 }
