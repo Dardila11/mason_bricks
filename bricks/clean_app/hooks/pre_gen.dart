@@ -5,7 +5,7 @@ Future<void> run(HookContext context) async {
   var appGenerated = context.logger.progress('Generating flutter app');
   try {
     await _generateApp(context);
-    appGenerated('Flutter App generation Successful');
+    appGenerated.complete('Flutter App generation Successful');
   } catch (e) {
     context.logger.err('Generation failed');
   }
@@ -13,14 +13,17 @@ Future<void> run(HookContext context) async {
 
 Future<ProcessResult> _generateApp(HookContext context) async {
   context.logger.info('Running flutter create...');
-  var app_description = context.vars['description'];
-  var name_org = context.vars['org'];
+  final projectName = context.vars['name'];
+  final appDescription = context.vars['description'];
+  final nameOrg = context.vars['org'];
   return Process.run('flutter', [
     'create',
-    '{{name}}',
+    '.',
+    '--project-name',
+    '$projectName',
     '--description',
-    '$app_description',
+    '$appDescription',
     '--org',
-    '$name_org'
+    '$nameOrg',
   ]);
 }
