@@ -18,16 +18,18 @@ Future<void> _removeFiles(HookContext context, String name) async {
     (element) {
       element.delete();
     },
-    onDone: () => removingFilesDone('.gitkeep files removed!'),
+    onDone: () => removingFilesDone.complete('.gitkeep files removed!'),
   );
 }
 
 Future<void> _installDependencies(HookContext context) async {
   final installDone = context.logger.progress('Installing dependencies...');
+  // final name = context.vars['name'];
   var result = await Process.run('flutter', ['pub', 'add', 'get_it'],
-      workingDirectory: './{{name}}');
+      workingDirectory: '.');
+  // workingDirectory: './$name');
   if (result.exitCode == 0) {
-    installDone('Dependencies installed!');
+    installDone.complete('Dependencies installed!');
   } else {
     context.logger.err(result.stderr);
   }
@@ -35,6 +37,7 @@ Future<void> _installDependencies(HookContext context) async {
 
 Future<void> _copyGeneratedFilesToLib(HookContext context) async {
   final done = context.logger.progress('Copying files to lib...');
+  // final name = context.vars['name'];
   var result = await Process.run('mv', [
     'core',
     'data',
@@ -42,10 +45,11 @@ Future<void> _copyGeneratedFilesToLib(HookContext context) async {
     'features',
     'di.dart',
     'main.dart',
-    './{{name}}/lib/',
+    './lib/',
+    // './$name/lib/',
   ]);
   if (result.exitCode == 0) {
-    done('Files copied successfully');
+    done.complete('Files copied successfully');
   } else {
     context.logger.err(result.stderr);
   }
